@@ -20,7 +20,12 @@ const app = express();
 /* ================= CORS =========================== */
 /* ================================================= */
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", process.env.CLIENT_URL],
+    credentials: true,
+  }),
+);
 
 /* ================================================= */
 /* ================= MIDDLEWARE ===================== */
@@ -74,9 +79,9 @@ const server = app.listen(PORT, () => {
 
 export const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
-
+    origin: ["http://localhost:5173", process.env.CLIENT_URL],
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
